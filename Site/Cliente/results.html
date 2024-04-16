@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector - Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Resultado</h1>
+        <p>{{ result }}</p>
+        <!-- Aqui você pode exibir outros detalhes ou resultados, se necessário -->
+        <a href="/">Voltar à busca</a>
+        
+        <div class="similar-news">
+            <h2>Notícias semelhantes</h2>
+            {% for noticia in lista_ordenada %}
+                <div class="noticia">
+                    <h3>{{ noticia['titulo'] }}</h3>
+                    <p>{{ noticia['subtitulo'] }}</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: {{ '%.2f'|format(noticia['similaridade'] * 100) }}%;"></div>
+                    </div>
+                    <p>Similaridade: {{ '%.2f'|format(noticia['similaridade'] * 100) }}%</p>
+                    <a href="{{ noticia['link'] }}" target="_blank">Leia mais</a>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <a href="/">Voltar à busca</a>
+    </div>
+</body>
+</html>
