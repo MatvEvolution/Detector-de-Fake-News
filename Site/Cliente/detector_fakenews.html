@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Notícias</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="fato_finder_logo.png" alt="FatoFinder Logo">
+        <h1>FatoFinder</h1>
+    </div>
+    <div class="container">
+        <h1>Fake News Detector</h1>
+        <form id="newsForm" action="/analyze" method="post" >
+            <textarea id="newsInput" name="news"></textarea>
+            <button type="submit">Analyze</button>
+        </form>
+        
+        <div id="progress"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Function to submit news and start progress updates
+        function submitNews() {
+            var news = document.getElementById("newsInput").value;
+            
+            // Send news to server for analysis
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'news=' + encodeURIComponent(news)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the analysis result
+                document.getElementById("result").innerText = data.result;
+    
+                // If analysis is completed, redirect to the results page
+                if (data.progressText === "Concluído") {
+                    window.location.href = '/results'; // Redirect to results page
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    
+            // Start updating progress periodically
+            updateProgress();
+        }
+    
+        // Function to update progress
+        function updateProgress() {
+            // Fetch progress from server
+            fetch('/progress', {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update progress text
+                document.getElementById("progress").innerText = "Progresso: " + data.progressText;
+    
+                // If analysis is not completed, continue updating progress
+                if (data.progressText !== "Concluído") {
+                    setTimeout(updateProgress, 4000); // Update progress every 1 second
+                }
+            })
+            .catch(error => console.error('Error fetching progress:', error));
+        }
+    
+        // Call submitNews() when form is submitted
+        document.getElementById("newsForm").addEventListener("submit", function(event) {
+            submitNews(); // Call submitNews() function
+        });
+    
+        // Call updateProgress() when page is loaded
+        window.onload = function() {
+            updateProgress(); // Call updateProgress() function
+        };
+    </script>
+    
+    
+</body>
+</html>
