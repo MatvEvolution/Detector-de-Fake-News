@@ -55,7 +55,7 @@ input[type="submit"]:hover {
 
 /* Logo Styling */
 .logo-container img {
-    width: 100px; /* Adjust the width of the logo */
+    width: 200px; /* Adjust the width as needed */
     height: auto; /* Maintain aspect ratio */
 }
 
@@ -89,9 +89,79 @@ input[type="submit"]:hover {
     transition: width 0.3s ease-in-out;
   }
 
+
+/* Estilos Janela Flutuante do Loading*/
+/* Estilo do modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.5);
+  }
   
-
-
-
-
-              
+  .modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; 
+    text-align: center;
+    min-height: 400px; /* Aumenta a altura */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Estilo do loader */
+  .loader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Estilo do label */
+  .loadingLabel {
+    margin-top: 20px; /* Adiciona um espaço entre o loading e o label */
+    display: block;
+  }
+  

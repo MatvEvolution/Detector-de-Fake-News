@@ -8,21 +8,48 @@
 </head>
 <body>
     <div class="logo-container">
-        <img src="fato_finder_logo.png" alt="FatoFinder Logo">
-        <h1>FatoFinder</h1>
+        <img src="/static/images/Fato_Finder_logo.png" alt="FatoFinder Logo">
     </div>
     <div class="container">
         <h1>Fake News Detector</h1>
         <form id="newsForm" action="/analyze" method="post" >
             <textarea id="newsInput" name="news"></textarea>
-            <button type="submit">Analyze</button>
+            <button type="submit" onclick="openModal()">Analyze</button>
         </form>
         
-        <div id="progress"></div>
+        
         <div id="result"></div>
     </div>
 
+
+    <!-- Janela flutuante -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="loader-container">
+                <div class="loader"></div>
+                <label id="progress" class="loadingLabel"></label>
+            </div>
+        </div>
+    </div>
+
+
     <script>
+        // Abre e fecha janela Flutuante de Laoding
+        function openModal() {
+            var modal = document.getElementById("modal");
+            modal.style.display = "block";
+
+            // Exibir progresso na janela flutuante
+            var progressDiv = document.getElementById("progress");
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("modal");
+            modal.style.display = "none";
+        }
+
+
         // Function to submit news and start progress updates
         function submitNews() {
             var news = document.getElementById("newsInput").value;
