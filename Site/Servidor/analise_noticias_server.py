@@ -42,16 +42,16 @@ def analyze_news(news):
         progresso_analise = progress
 
 
-    update_progress("Palavras Chave")
+    update_progress("Coletando Palavras-chave")
     palavras_chave = extrair_palavras_chave(news)
     print(palavras_chave)
 
 
-    update_progress("Noticias relacionadas")
+    update_progress("Coletando Notícias Relacionadas")
     resultados_noticias = coletar_noticias_paralelo(palavras_chave)
     print(resultados_noticias)
 
-    update_progress("Noticias semelhante")
+    update_progress("Verificando Semelhança com as Noticias Coletadas")
     # Reordenar a lista de dicionários com base na similaridade
     lista_ordenada = calcular_similaridade_com_lista(news, resultados_noticias)
 
@@ -62,7 +62,7 @@ def analyze_news(news):
         print()
 
     
-    update_progress("Analisador IA")
+    update_progress("Realizando Análise com o modelo de Inteligência Artificial")
     # Caminho para o arquivo Flask externo
     flask_file_path = "Site\\Servidor\\analisador.py"
 
