@@ -80,20 +80,20 @@ def analyze_news(news):
         result = resultados[0]
         result_prediction_final = resultados[1]
         progresso_analise = "Concluído"
-        return lista_ordenada, f"Resultado: {result}, Porcentagem de Previsão Final: {result_prediction_final}"
+        result_prediction_final = round(result_prediction_final, 2)
+        return lista_ordenada, result, result_prediction_final
 
 
 # Rota para receber a notícia e enviar o resultado da análise
 @app.route('/analyze', methods=['POST'])
 def analyze():
     news = request.form['news']
-    lista_ordenada, result = analyze_news(news)
-
+    lista_ordenada, result, result_prediction_final = analyze_news(news)
 
     if lista_ordenada is None:
         lista_ordenada = []
     
-    return render_template('results.html', result=result, lista_ordenada=lista_ordenada)
+    return render_template('results.html', result=result, result_prediction_final=result_prediction_final, lista_ordenada=lista_ordenada)
 
 # Rota para fornecer o progresso atual
 @app.route('/progress', methods=['GET'])

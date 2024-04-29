@@ -7,11 +7,19 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="logo-container">
+        <img src="/static/images/Fato_Finder_logo.png" alt="FatoFinder Logo">
+    </div>
     <div class="container">
         <h1>Resultado</h1>
-        <p>{{ result }}</p>
+        {% if result == "Real" %}
+            <p class="result-true">Resultado: Real</p>
+        {% else %}
+            <p class="result-false">Resultado: Falso</p>
+        {% endif %}
+        <p class="prediction">Porcentagem de Previsão Final: {{ result_prediction_final }}%</p>
 
-        <a href="/">Voltar à busca</a>
+        <a href="/" class="back-to-search">Voltar à busca</a>
         
         <div class="similar-news">
             <h2>Notícias semelhantes</h2>
@@ -23,12 +31,12 @@
                         <div class="progress" style="width: {{ '%.2f'|format(noticia['similaridade'] * 100) }}%;"></div>
                     </div>
                     <p>Similaridade: {{ '%.2f'|format(noticia['similaridade'] * 100) }}%</p>
-                    <a href="{{ noticia['link'] }}" target="_blank">Leia mais</a>
+                    <a href="{{ noticia['link'] }}" class="read-more" target="_blank">Leia mais</a>
                 </div>
             {% endfor %}
         </div>
         
-        <a href="/">Voltar à busca</a>
+        <a href="/" class="back-to-search">Voltar à busca</a>
     </div>
 </body>
 </html>
