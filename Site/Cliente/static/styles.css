@@ -214,3 +214,52 @@ input[type="submit"]:hover {
 .back-to-search:hover {
   background-color: #0056b3; /* Cor de fundo ao passar o mouse */
 }
+
+
+/* Estilos para a janela flutuante do aviso */
+#warningModal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* Estilizando o título */
+.warning-title {
+  font-weight: bold;
+  color: #ff6347;
+  font-size:xx-large;
+  margin-top: 0;
+}
+
+/* Estilizando o texto */
+.warning-text {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333; 
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+
+/* Estiliza o botão "Analisar" */
+#newsForm button[type="submit"] {
+  padding: 12px 24px; 
+  background-color: #007bff; 
+  color: #fff; 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+  font-size: 18px; 
+  transition: background-color 0.3s ease; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+#newsForm button[type="submit"]:hover {
+  background-color: #0056b3; 
+}
