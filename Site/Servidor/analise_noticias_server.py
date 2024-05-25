@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import os
 import analisador
+import analisador_bert
 from palavras_chave import extrair_palavras_chave
 from coleta_noticias_relacionadas import coletar_noticias_paralelo
 from comparador_textos import calcular_similaridade_com_lista
@@ -64,7 +65,8 @@ def analyze_news(news):
     
     update_progress("Realizando Análise com o modelo de Inteligência Artificial")
     # Caminho para o arquivo Flask externo
-    flask_file_path = "Site\\Servidor\\analisador.py"
+    #flask_file_path = "Site\\Servidor\\analisador.py" #caminho para o modelo bilstm
+    flask_file_path = "Site\\Servidor\\analisador_bert.py"#caminho para o modelo bert
 
     # Execute o arquivo Flask como um processo separado
     process = subprocess.Popen([sys.executable, flask_file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -76,7 +78,8 @@ def analyze_news(news):
     if error:
         return "Erro ao executar Análise: " + str(error)
     else:
-        resultados = analisador.execute_analysis(news)
+        #resultados = analisador.execute_analysis(news) #versao bilstm
+        resultados = analisador_bert.execute_analysis_bert(news)
         result = resultados[0]
         result_prediction_final = resultados[1]
         progresso_analise = "Concluído"
@@ -100,6 +103,18 @@ def analyze():
 def get_progress():
     global progresso_analise
     return jsonify({"progressText": progresso_analise})
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

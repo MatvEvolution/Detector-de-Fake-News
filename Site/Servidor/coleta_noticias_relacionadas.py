@@ -193,8 +193,8 @@ def extrair_texto(url_base, link_redirecionado):
 
             articles = site.find_all('article')
             for article in articles:
-                # Encontra todas as tags <div> dentro do <article>
-                divs = article.find_all('div', attrs= {'class': 'blocks-renderer-container'})
+                # Encontra todas as tags <p> dentro do <article>
+                divs = article.find_all('p')
                 
                 # Extrai o texto de cada <p> e faz algo com ele
                 text = '\n'.join([div.text for div in divs])

@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análise de Notícias</title>
+    <title>Política de Privacidade</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <script src="static/script.js"></script>
 </head>
 
 <body>
@@ -30,43 +29,32 @@
         </div>
     </div>
 
-
-
     <div class="container">
-        <h1>Detector de Fake News</h1>
-        <form id="newsForm" action="/analyze" method="post">
-            <textarea id="newsInput" name="news"></textarea>
-            <button type="submit" onclick="openModal()">Analisar</button>
-        </form>
+        <h1>Política de Privacidade</h1>
+        <p>Bem-vindo à Política de Privacidade do Fato Finder. Nós respeitamos a privacidade dos nossos usuários e não
+            coletamos informações pessoais sem o seu consentimento.</p>
 
+        <h2>1. Coleta de Informações</h2>
+        <p>O Fato Finder não coleta informações pessoais dos usuários, exceto pelo texto fornecido para análise, que não
+            é armazenado no nosso sistema após a análise ser concluída.</p>
 
-        <div id="result"></div>
+        <h2>2. Uso das Informações</h2>
+        <p>O texto fornecido para análise é utilizado exclusivamente para determinar a veracidade da notícia e não é
+            armazenado ou utilizado para outros fins.</p>
+
+        <h2>3. Compartilhamento de Informações</h2>
+        <p>Não compartilhamos informações pessoais dos usuários com terceiros, pois não as coletamos.</p>
+
+        <h2>4. Consentimento</h2>
+        <p>Ao utilizar o Fato Finder, você consente com o processamento do texto fornecido para análise de acordo com
+            esta Política de Privacidade.</p>
+
+        <h2>5. Alterações na Política de Privacidade</h2>
+        <p>Reservamos o direito de atualizar ou alterar esta Política de Privacidade a qualquer momento. Você será
+            notificado sobre essas mudanças através do nosso site.</p>
+
+        <p>Última atualização: 1º de Maio de 2024</p>
     </div>
-
-    <!-- Janela flutuante -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div class="loader-container">
-                <div class="loader"></div>
-                <label id="progress" class="loadingLabel"></label>
-            </div>
-        </div>
-    </div>
-
-    <!-- Janela flutuante Aviso Inicial-->
-    <div id="warningModal" class="modal warning-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeWarningModal()">&times;</span>
-            <h2 class="warning-title">Aviso</h2>
-            <p class="warning-text">Os resultados fornecidos pela análise deste modelo são baseados em análises
-                automatizadas e podem não ser 100% precisos. É importante verificar as fontes confiáveis e considerar
-                diferentes pontos de vista ao avaliar informações online.</p>
-            <p class="warning-text">Para verificar fontes confiáveis, recomendamos consultar sites de verificação de
-                fatos, como PolitiFact, Snopes, Agência Lupa, entre outros.</p>
-        </div>
-    </div>
-
 </body>
 
 <footer>

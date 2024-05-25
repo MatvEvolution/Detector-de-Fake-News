@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Detecção de Fake News</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div style="display: flex;">
+        <div class="logo-container" style="flex: 1; text-align: center;">
+            <a href="{{ url_for('index') }}"><img src="/static/images/Fato_Finder_logo.png" alt="FatoFinder Logo"></a>
+        </div>
+
+        <!-- Menu Hambúrguer -->
+        <div class="menu-hamburger" style="margin-right: 10px;">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <nav class="menu">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('faq') }}">FAQ</a></li>
+                    <li><a href="{{ url_for('privacy') }}">Política de Privacidade</a></li>
+                    <li><a href="{{ url_for('terms') }}">Termos de Serviço</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>FAQ - Detecção de Fake News com IA</h1>
+        <div class="faq">
+            <div class="faq-item">
+                <div class="question">Como funciona o site de detecção de fake news?</div>
+                <div class="answer">Nosso site utiliza algoritmos de inteligência artificial para analisar o conteúdo de
+                    notícias e determinar a sua veracidade com base em várias fontes e padrões reconhecidos de notícias
+                    falsas.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">Quais são as fontes utilizadas para verificação?</div>
+                <div class="answer">Utilizamos uma variedade de fontes confiáveis, incluindo agências de checagem de
+                    fatos, bancos de dados de notícias, e relatórios de especialistas em desinformação.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">Como a IA identifica uma notícia falsa?</div>
+                <div class="answer">A IA analisa elementos como manchetes, estrutura do texto, links referenciados, e
+                    compara com bancos de dados de notícias confirmadas. Também avalia a credibilidade da fonte e o
+                    histórico de precisão.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">É garantido que a detecção é 100% precisa?</div>
+                <div class="answer">Embora a IA seja extremamente eficaz, a detecção de fake news não é infalível.
+                    Continuamos a aprimorar nossos algoritmos e encorajamos os usuários a utilizarem múltiplas fontes
+                    para verificação.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">Posso submeter uma notícia para verificação?</div>
+                <div class="answer">Sim, oferecemos uma ferramenta onde os usuários podem submeter notícias para
+                    análise. A IA processará o pedido e fornecerá um relatório sobre a veracidade da notícia.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">Como são coletadas as notícias relacionadas para análise?</div>
+                <div class="answer">Para coletar notícias relacionadas, utilizamos um processo chamado web scraping, no
+                    qual é possível coletar notícias de outros sites. Nosso processo envolve realizar essa coleta em
+                    sites de notícias usando palavras-chave do texto fornecido para análise. Em seguida, comparamos o
+                    texto fornecido com os textos coletados para determinar a semelhança e relevância das notícias
+                    encontradas.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">Quais conjuntos de dados são usados para treinar a IA?</div>
+                <div class="answer">Utilizamos diversos conjuntos de dados para treinar nossa IA, incluindo o Fake.Br
+                    Corpus, FakeRecogna e FakeTrueBR. Esses conjuntos de dados contêm exemplos de notícias falsas e
+                    verdadeiras, ajudando a IA a aprender a distinguir entre elas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="question">Quais sites são atualmente utilizados para web scraping?</div>
+                <div class="answer">Atualmente, estamos coletando notícias de diversos sites de notícias confiáveis,
+                    como G1, SBT News e CNN Brasil. Utilizamos o resultado da busca nestes sites, utilizando
+                    palavras-chave do texto fornecido para análise, para encontrar notícias relacionadas para análise.
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+<footer>
+    <div class="container" style="margin: auto; max-width: max-content; text-align: center;">
+        <p>&copy; 2024 Fato Finder. Todos os direitos reservados.</p>
+        <p>Este site não é afiliado a G1, SBT News, ou CNN Brasil. As notícias fornecidas por esses sites são usadas
+            apenas para fins de análise e não representam um endosso por parte deste site.</p>
+    </div>
+</footer>
+
+</html>

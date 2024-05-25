@@ -183,8 +183,6 @@ def execute_analysis(news):
         
     result_prediction_final = predictions[0][predicted_class] * 100
 
-
-    # Aqui você poderia fazer outras operações necessárias, como coletar notícias relacionadas
     related_news = [{"title": "Título da Notícia Relacionada", "summary": "Resumo da Notícia Relacionada", "image": "url_da_imagem"}]
 
     return result, result_prediction_final, related_news

@@ -263,3 +263,90 @@ input[type="submit"]:hover {
 #newsForm button[type="submit"]:hover {
   background-color: #0056b3; 
 }
+
+
+/* Menu Hambúrguer */
+.menu-hamburger {
+  position: relative;
+  display: inline-block;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.menu {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  border-bottom: 1px solid #ddd;
+}
+
+.menu ul li a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+.menu ul li a:hover {
+  background-color: #f0f0f0;
+}
+
+#menu-toggle:checked + .menu-icon + .menu {
+  display: block;
+}
+
+/*FAQ*/
+.faq {
+  border-top: 1px solid #ddd;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.question {
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+}
+
+.question::after {
+  content: '+';
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  transition: transform 0.3s;
+}
+
+.faq-item.active .question::after {
+  transform: rotate(45deg);
+}
+
+.answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 10px;
+  color: #666;
+}
