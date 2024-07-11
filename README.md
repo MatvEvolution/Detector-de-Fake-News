@@ -66,8 +66,7 @@ main/
     ```bash
     pip install -r requirements.txt
     ```
-
-4.Certifique-se de baixar o modelo do SpaCy para o idioma português:
+4. Certifique-se de baixar o modelo do SpaCy para o idioma português:
     ```bash
     python -m spacy download pt_core_news_lg
     ```
