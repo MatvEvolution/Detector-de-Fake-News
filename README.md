@@ -1,7 +1,7 @@
 
 # Detecção de Fake News usando IA
 
-Este projeto tem como objetivo testar, avaliar e comparar diversos modelos de IA treinados para detectar fake news usando vários modelos de aprendizado de máquina e aprendizado profundo. O objetivo é criar um modelo robusto que possa classificar com precisão os artigos de notícias como reais ou falsos.
+Este projeto tem como objetivo testar, avaliar e comparar diversos modelos de IA treinados para detectar fake news usando vários modelos de aprendizado de máquina e aprendizado profundo. O objetivo é criar um modelo robusto que possa classificar com precisão os artigos de notícias como reais ou falsos. O projeto ainda se encontra em andamento.
 
 ## Índice
 
@@ -65,6 +65,11 @@ main/
 3. Instale as dependências necessárias:
     ```bash
     pip install -r requirements.txt
+    ```
+
+4.Certifique-se de baixar o modelo do SpaCy para o idioma português:
+    ```bash
+    python -m spacy download pt_core_news_lg
     ```
 
 ## Modelos
