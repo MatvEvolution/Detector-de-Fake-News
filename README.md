@@ -10,7 +10,6 @@ Este projeto tem como objetivo testar, avaliar e comparar diversos modelos de IA
 - [Instalação](#instalação)
 - [Modelos](#modelos)
 - [Conjuntos de Dados](#conjuntos-de-dados)
-- [Licença](#licença)
 
 ## Introdução
 
@@ -90,6 +89,3 @@ Usamos conjuntos de dados disponíveis publicamente para treinamento e avaliaç�
 - [FakeRecogna](https://github.com/Gabriel-Lino-Garcia/FakeRecogna)
 - [FakeTrueBR](https://github.com/jpchav98/FakeTrue.Br)
 
-## Licença
-
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
