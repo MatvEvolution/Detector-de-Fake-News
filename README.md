@@ -53,7 +53,7 @@ main/
 
 1. Clone o repositório:
     ```bash
-    git clone [https://github.com/MatvEvolution/Detector-de-Fake-News.git]
+    git clone https://github.com/MatvEvolution/Detector-de-Fake-News.git
     ```
 
 2. Crie um ambiente virtual e ative-o:
