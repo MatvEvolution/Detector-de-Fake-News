@@ -56,10 +56,7 @@ main/
     ```
 
 2. Crie um ambiente virtual e ative-o:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # No Windows, use `venv\Scripts\activate`
-    ```
+    - Utilize por exemplo o anaconda.
 
 3. Instale as dependências necessárias:
     ```bash
