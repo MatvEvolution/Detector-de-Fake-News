@@ -13,11 +13,10 @@
     <div class="container">
         <h1>Resultado</h1>
         {% if result == "Real" %}
-            <p class="result-true">Resultado: Real</p>
+            <p class="result-true">Resultado previsto pelo modelo IA: Real</p>
         {% else %}
-            <p class="result-false">Resultado: Falso</p>
+            <p class="result-false">Resultado previsto pelo modelo IA: Falso</p>
         {% endif %}
-        <p class="prediction">Porcentagem de Previsão Final: {{ result_prediction_final }}%</p>
 
         <a href="/" class="back-to-search">Voltar à busca</a>
         

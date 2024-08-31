@@ -3,7 +3,7 @@ function openModal() {
     var modal = document.getElementById("modal");
     modal.style.display = "block";
 
-    // Exibir progresso na janela flutuante
+    // Exibe progresso na janela flutuante
     var progressDiv = document.getElementById("progress");
 }
 
@@ -71,15 +71,15 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Elemento #newsForm não encontrado.");
     }
 
-    // Abrir a janela flutuante quando a página carrega
+    // Abre a janela flutuante quando a página carrega
     var modal = document.getElementById('warningModal');
     modal.style.display = 'block';
 
-    // Fechar a janela flutuante ao clicar no botão de fechar
+    // Fecha a janela flutuante ao clicar no botão de fechar
     var closeBtn = document.querySelector('.close');
     if (closeBtn) {
         closeBtn.onclick = function() {
-            closeWarningModal(); // Chamando a função closeModal() aqui
+            closeWarningModal(); 
         }
     } else {
         console.error("Elemento .close não encontrado.");

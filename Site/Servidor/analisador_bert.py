@@ -5,10 +5,14 @@ from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.preprocessing import LabelEncoder
 
 # Função para carregar o modelo BERT
-def load_bert_model(model_path):
-    model = BertForSequenceClassification.from_pretrained(model_path)
-    tokenizer = BertTokenizer.from_pretrained("neuralmind/bert-base-portuguese-cased")
-    return model, tokenizer
+def load_bert_model(model_save_path):
+    # Inicializa um modelo BERT para classificação
+    model = BertForSequenceClassification.from_pretrained('neuralmind/bert-base-portuguese-cased')
+    
+    # Carrega os pesos do modelo salvo
+    model.load_state_dict(torch.load(model_save_path, map_location='cpu'))
+    model.eval()  # Coloca o modelo em modo de avaliação
+    return model
 
 # Função para pré-processar e tokenizar o texto
 def preprocess_and_tokenize(texto, tokenizer, max_length=128):
@@ -31,25 +35,26 @@ def execute_analysis_bert(news):
     atual_dir = os.getcwd()
     caminho_csv = os.path.join(atual_dir, "Pre-processamento\\noticias_dados_limpos.csv")
     
-    # Carregar dataframe
+    # Carrega dataframe
     df = pd.read_csv(caminho_csv)
     
-    # Obter as categorias
-    categorias = df['Categoria'].unique()
+    # Caminho do modelo
+    model_save_path = os.path.join(atual_dir, "Modelos\\BERT\\Treinamento\\bert_model.bin")
+    tokenizer = BertTokenizer.from_pretrained("neuralmind/bert-base-portuguese-cased")
     
-    # Carregar o modelo e tokenizador do BERT
-    model_path = os.path.join(atual_dir, "Modelos\\BERT\\Treinamento")
-    model, tokenizer = load_bert_model(model_path)
+    # Carrega o modelo
+    model = load_bert_model(model_save_path)
     
-    # Pré-processar e tokenizar o texto
+    # Pré-processa e tokeniza o texto
     inputs = preprocess_and_tokenize(news, tokenizer)
     
-    # Fazer a previsão
+    # Faz a previsão
     predicted_class_idx, prediction_confidence = predict(inputs, model)
     
-    # Mapear o índice da classe prevista para a categoria original
+    # Mapeia o índice da classe prevista para a categoria original
     le = LabelEncoder()
     df['label'] = le.fit_transform(df['Categoria'])
+    le.classes_ = le.classes_  # Manter classes como no treino
     original_class = le.inverse_transform([predicted_class_idx])[0]
     
     # Resultados finais

@@ -163,7 +163,7 @@ def obter_link_redirecionado(link_original, url_base):
 def extrair_texto(url_base, link_redirecionado):
     text = ''  # Inicializa a variável text com um valor padrão
     if(url_base == 'https://g1.globo.com/'):
-        # Extrair texto
+        # Extrai o texto
         try:
            
             driver = configure_chrome_options()
@@ -181,7 +181,7 @@ def extrair_texto(url_base, link_redirecionado):
         except:
             pass
     elif(url_base == 'https://sbtnews.sbt.com.br/'):
-        # Extrair texto
+        # Extrai o texto
         try:
             
             driver = configure_chrome_options()
@@ -196,13 +196,13 @@ def extrair_texto(url_base, link_redirecionado):
                 # Encontra todas as tags <p> dentro do <article>
                 divs = article.find_all('p')
                 
-                # Extrai o texto de cada <p> e faz algo com ele
+                # Extrai o texto de cada <p>
                 text = '\n'.join([div.text for div in divs])
             driver.quit()
         except:
             pass
     elif(url_base == 'https://www.cnnbrasil.com.br/'):
-        # Extrair texto
+        # Extrai o texto
         try:
             
             driver = configure_chrome_options()
