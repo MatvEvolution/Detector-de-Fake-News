@@ -8,73 +8,55 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import pickle
-from nltk.tokenize import word_tokenize
+from gensim.models import Word2Vec
+from sklearn.preprocessing import LabelEncoder
 
-# Variáveis globais
-word_to_index = None
-index_to_word = None
-sequences = None
-model = None
+# Variáveis globais para armazenar os modelos e dados
+model_bilstm = None
+X_test_bilstm = None
+y_test_bilstm = None
+df_pre = None
+df_csv = None
 max_length = None
+model_word2vec = None
 
-def load_word2vec_models(caminho1, caminho2, caminho_sequences):
-    # Carregar dicionários de arquivos usando pickle
-    global word_to_index
-    global index_to_word
-    global sequences
+def carrega_modelos():
+    global model_bilstm, X_test_bilstm, y_test_bilstm, df_pre, df_csv, max_length, model_word2vec
 
-    with open(caminho1, 'rb') as handle:
-        word_to_index = pickle.load(handle)
+    # Verifica se os modelos já foram carregados
+    if model_bilstm is None or model_word2vec is None:
+        # Encontra diretório atual
+        atual_dir = os.getcwd()
 
-    with open(caminho2, 'rb') as handle:
-        index_to_word = pickle.load(handle)
+        # Define caminhos para arquivos pickle e modelo
+        caminho_pkl = os.path.join(atual_dir, "Pre-processamento\\df_pre_processado.pkl")
+        caminho_csv = os.path.join(atual_dir, "Pre-processamento\\noticias_dados_limpos.csv")
+        caminho_modelo = os.path.join(atual_dir, "Modelos\\BiLSTM\\Treinamento\\BiLSTM_model.h5")
+        X_test_caminho = os.path.join(atual_dir, "Modelos\\BiLSTM\\Treinamento\\X_test_BiLSTM.npy")
+        y_test_caminho = os.path.join(atual_dir, "Modelos\\BiLSTM\\Treinamento\\y_test_BiLSTM.npy")
+        caminho_word2vec_model = os.path.join(atual_dir, "Pre-processamento\\model_word2vec.model")
+        caminho_max_length = os.path.join(atual_dir, "Pre-processamento\\max_length.pkl")
 
-    with open(caminho_sequences, 'rb') as handle:
-        sequences = pickle.load(handle)
+        model_bilstm = load_model(caminho_modelo)
+        X_test_bilstm = np.load(X_test_caminho)
+        y_test_bilstm = np.load(y_test_caminho)
 
-    return word_to_index, index_to_word, sequences
+        with open(caminho_pkl, 'rb') as f:
+            df_pre = pickle.load(f)
 
-def load_bi_lstm_model(caminho_modelo, X_test_caminho, y_test_caminho):
-    # Carrega modelo Bi-LSTM
-    global model
-    global max_length
+        df_csv = pd.read_csv(caminho_csv)
 
-    model = load_model(caminho_modelo)
-    X_test = np.load(X_test_caminho)
-    y_test = np.load(y_test_caminho)
+        with open(caminho_max_length, 'rb') as f:
+            max_length = pickle.load(f)
 
-    # Calcula uma porcentagem de 95% dos comprimentos das sequências (preserva 95% das sequências)
-    max_length = int(np.percentile([len(seq) for seq in sequences], 95))
-
-    return model, X_test, y_test
-
+        model_word2vec = Word2Vec.load(caminho_word2vec_model)
+    
+    return model_bilstm, X_test_bilstm, y_test_bilstm, df_pre, df_csv, max_length, model_word2vec
 
 def execute_analysis(news):
-    global word_to_index, index_to_word, sequences, model, max_length
+    model_bilstm, X_test_bilstm, y_test_bilstm, df_pre, df_csv, max_length, model_word2vec = carrega_modelos()
 
-    # Encontra diretório atual
-    atual_dir = os.getcwd()
-
-    # Define caminhos para arquivos pickle e modelo
-    caminho_pkl = os.path.join(atual_dir, "Pre-processamento\\noticias_pre_processadas_df.pkl")
-    caminho_csv = os.path.join(atual_dir, "Pre-processamento\\noticias_dados_limpos.csv")
-    caminho1 = os.path.join(atual_dir, "Modelos\\Word2Vec\\word_to_index.pickle")
-    caminho2 = os.path.join(atual_dir, "Modelos\\Word2Vec\\index_to_word.pickle")
-    caminho_sequences = os.path.join(atual_dir, "Modelos\\Word2Vec\\sequences.pickle")
-    caminho_modelo = os.path.join(atual_dir, "Modelos\\BiLSTM\\Treinamento\\modelo_BiLSTM.h5")
-    X_test_caminho = os.path.join(atual_dir, "Modelos\\BiLSTM\\Treinamento\\X_test_BiLSTM.npy")
-    y_test_caminho = os.path.join(atual_dir, "Modelos\\BiLSTM\\Treinamento\\y_test_BiLSTM.npy")
-
-    if word_to_index is None or index_to_word is None or sequences is None:
-        word_to_index, index_to_word, sequences = load_word2vec_models(caminho1, caminho2, caminho_sequences)
-
-    if model is None or max_length is None:
-        model, X_test, y_test = load_bi_lstm_model(caminho_modelo, X_test_caminho, y_test_caminho)
-
-    # Carregar dataframe salvo em formato pickle
-    df = pd.read_pickle(caminho_pkl)
-
-    # Habilita suporte do tqdm para os métodos de progressão do pandas (como progress_aplly)
+    # Habilita suporte do tqdm para os métodos de progressão do pandas (como progress_apply)
     tqdm.pandas()
 
     # Carrega modelo de linguagem 'pt_core_news_lg' do spacy para processamento de texto em português
@@ -134,22 +116,37 @@ def execute_analysis(news):
             # Junta as partes em uma lista, para formar o dataframe final
             chunks_processados.append(chunk_processado)
 
-        concatenated_df = pd.concat(chunks_processados) # Concatenar os DataFrames processados
+        concatenated_df = pd.concat(chunks_processados) # Concatena os DataFrames processados
 
-        df[coluna_texto] = concatenated_df[coluna_texto] # Atribuir a coluna 'texto' processada de volta ao dataframe original
+        df[coluna_texto] = concatenated_df[coluna_texto] # Atribui a coluna 'texto' processada de volta ao dataframe original
         
-        # Remover tokens com espaços vazios
+        # Remove tokens com espaços vazios
         print("Remover tokens com espaços vazios...")
         df[coluna_texto] = df[coluna_texto].progress_apply(lambda x: [token for token in x if token.strip()])
 
-    # Crie um DataFrame com uma linha e a coluna 'data'
+    # Cria um DataFrame 
     df_predict = pd.DataFrame(data={'Texto': [news]})
 
-    # Faz pré-processamento
+    # Faz o pré-processamento
     preprocess_data(df_predict, 'Texto')
 
-    # Conversão dos dados para serem usados no modelo (rede neural)
+    # Converte os dados para serem usados no modelo (rede neural)
     preprocessed_articles = df_predict['Texto'].tolist()
+
+    # 'word_to_index' é um dicionário que mapeia cada palavra ao seu índice correspondente.
+    word_to_index = {}
+
+    # 'index_to_word' é um dicionário que mapeia cada índice à palavra correspondente.
+    index_to_word = {}
+
+    # Itera sobre a lista de palavras únicas obtida do modelo Word2Vec
+    for i, word in enumerate(model_word2vec.wv.index_to_key):
+        # Atribui a palavra ao índice i + 1 no dicionário 'word_to_index'.
+        # Os índices começam em 1 para reservar o índice 0 para preenchimento (padding) quando necessário.
+        word_to_index[word] = i + 1
+        
+        # Atribui o índice i + 1 à palavra no dicionário 'index_to_word'.
+        index_to_word[i + 1] = word
 
     sequences_test = []
     for tokens in tqdm(preprocessed_articles):
@@ -161,22 +158,17 @@ def execute_analysis(news):
 
     padded_example = pad_sequences(sequences_test, maxlen=max_length, padding='post')
 
-    # Fazer a previsão usando o modelo
-    predictions = model.predict(padded_example)
+    # Faz a previsão usando o modelo
+    predictions = model_bilstm.predict(padded_example)
 
-    # Identificar a classe com a maior probabilidade
+    # Identifica a classe com a maior probabilidade
     predicted_class = np.argmax(predictions)   
-
-    # Carregar dataframe salvo em formato csv
-    df = pd.read_csv(caminho_csv)
-
-    from sklearn.preprocessing import LabelEncoder
 
     # Cria um objeto LabelEncoder
     le = LabelEncoder()
 
     # Transforma os labels para variáveis categóricas
-    df['label'] = le.fit_transform(df['Categoria'])
+    df_csv['label'] = le.fit_transform(df_csv['Categoria'])
 
     original_class = le.inverse_transform([predicted_class]) 
     result = original_class[0]

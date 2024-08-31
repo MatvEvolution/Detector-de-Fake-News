@@ -1,0 +1,2 @@
+Modelos/BERT/Treinamento/bert_model.bin filter=lfs diff=lfs merge=lfs -text
+Modelos/BiLSTM[[:space:]](GLoVe)/Treinamento/glove.6B.100d.txt filter=lfs diff=lfs merge=lfs -text

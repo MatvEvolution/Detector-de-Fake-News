@@ -1,180 +1,188 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-    color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  color: #333;
 }
+
 .container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-h1, h2 {
-    text-align: center;
+
+h1,
+h2 {
+  text-align: center;
 }
+
 p {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
+
 textarea {
-    width: 95%;
-    height: 200px; 
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none; 
-    overflow-y: auto; 
+  width: 95%;
+  height: 200px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  overflow-y: auto;
 }
+
 input[type="submit"] {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
 }
+
 input[type="submit"]:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
+
 .similar-news {
-    margin-top: 20px;
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
 }
-/* Logo Container */
+
+/* Logo  */
 .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-/* Logo Styling */
 .logo-container img {
-    width: 200px; 
-    height: auto; 
+  width: 200px;
+  height: auto;
 }
 
-/* Name Styling */
 .logo-container h1 {
-    font-size: 24px; 
-    margin-left: 10px; 
+  font-size: 24px;
+  margin-left: 10px;
 }
-
-
 
 /* Estilos para as notícias */
 .noticia {
-    margin-bottom: 20px;
-  }
-  
-  /* Estilos para a barra de progresso */
-  .progress-bar {
-    width: 100%;
-    height: 20px; 
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
-  
-  .progress {
-    height: 100%;
-    background-color: #4caf50;
-    border-radius: 5px;
-    width: 0%;
-    transition: width 0.3s ease-in-out;
-  }
+  margin-bottom: 20px;
+}
+
+/* Estilos para a barra de progresso */
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.3s ease-in-out;
+}
 
 
 /* Estilos Janela Flutuante do Loading*/
 /* Estilo do modal */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0,0,0,0.5);
-  }
-  
-  .modal-content {
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 60%; 
-    text-align: center;
-    min-height: 400px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .close {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-  /* Estilo do loader */
-  .loader-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .loader {
-    border: 16px solid #f3f3f3; 
-    border-top: 16px solid #3498db; 
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Estilo do label */
-  .loadingLabel {
-    margin-top: 20px; 
-    display: block;
-  }
-  
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  /* Estiliza o resultado */
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilo do loader */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estilo do label */
+.loadingLabel {
+  margin-top: 20px;
+  display: block;
+}
+
+/* Estiliza o resultado */
 .result-true {
-  color: green; 
+  color: green;
   font-weight: bold;
 }
 
 .result-false {
-  color: red; 
+  color: red;
   font-weight: bold;
 }
 
@@ -201,47 +209,46 @@ input[type="submit"]:hover {
 .back-to-search {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #007bff; /* Cor de fundo */
-  color: #fff; /* Cor do texto */
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 5px; /* Borda arredondada */
+  border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  transition: background-color 0.3s ease; /* Efeito de transição */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .back-to-search:hover {
-  background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+  background-color: #0056b3;
 }
-
 
 /* Estilos para a janela flutuante do aviso */
 #warningModal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Estilizando o título */
+
 .warning-title {
   font-weight: bold;
   color: #ff6347;
-  font-size:xx-large;
+  font-size: xx-large;
   margin-top: 0;
 }
 
-/* Estilizando o texto */
+
 .warning-text {
   font-family: Arial, sans-serif;
   font-size: 16px;
-  color: #333; 
+  color: #333;
   line-height: 1.5;
   margin-bottom: 15px;
 }
@@ -249,19 +256,19 @@ input[type="submit"]:hover {
 
 /* Estiliza o botão "Analisar" */
 #newsForm button[type="submit"] {
-  padding: 12px 24px; 
-  background-color: #007bff; 
-  color: #fff; 
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 18px; 
-  transition: background-color 0.3s ease; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #newsForm button[type="submit"]:hover {
-  background-color: #0056b3; 
+  background-color: #0056b3;
 }
 
 
@@ -286,7 +293,7 @@ input[type="submit"]:hover {
   top: 40px;
   right: 0;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .menu ul {
@@ -310,7 +317,7 @@ input[type="submit"]:hover {
   background-color: #f0f0f0;
 }
 
-#menu-toggle:checked + .menu-icon + .menu {
+#menu-toggle:checked+.menu-icon+.menu {
   display: block;
 }
 

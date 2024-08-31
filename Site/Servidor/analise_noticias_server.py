@@ -32,7 +32,6 @@ def index():
 
 # Função para análise de notícias falsas
 def analyze_news(news):
- # Importe aqui as funções e variáveis necessárias para a análise
     import subprocess
     import sys
 
@@ -53,10 +52,10 @@ def analyze_news(news):
     print(resultados_noticias)
 
     update_progress("Verificando Semelhança com as Noticias Coletadas")
-    # Reordenar a lista de dicionários com base na similaridade
+    # Reordena a lista de dicionários com base na similaridade
     lista_ordenada = calcular_similaridade_com_lista(news, resultados_noticias)
 
-    # Exibir os textos reordenados
+    # Exibe os textos reordenados
     for dicionario in lista_ordenada:
         print("Texto:", dicionario['texto'])
         print("Similaridade:", dicionario['similaridade'])
@@ -65,21 +64,22 @@ def analyze_news(news):
     
     update_progress("Realizando Análise com o modelo de Inteligência Artificial")
     # Caminho para o arquivo Flask externo
-    #flask_file_path = "Site\\Servidor\\analisador.py" #caminho para o modelo bilstm
+    ##flask_file_path = "Site\\Servidor\\analisador.py" #caminho para o modelo bilstm
+
     flask_file_path = "Site\\Servidor\\analisador_bert.py"#caminho para o modelo bert
 
-    # Execute o arquivo Flask como um processo separado
+    # Executa o arquivo Flask como um processo separado
     process = subprocess.Popen([sys.executable, flask_file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-    # Aguarde até que o processo termine e obtenha a saída
+    # Aguarda até que o processo termine e obtenha a saída
     output, error = process.communicate()
 
-    # Verifique se houve algum erro
+    # Verifica se houve algum erro
     if error:
         return "Erro ao executar Análise: " + str(error)
     else:
         #resultados = analisador.execute_analysis(news) #versao bilstm
-        resultados = analisador_bert.execute_analysis_bert(news)
+        resultados = analisador_bert.execute_analysis_bert(news) #versao bert
         result = resultados[0]
         result_prediction_final = resultados[1]
         progresso_analise = "Concluído"
