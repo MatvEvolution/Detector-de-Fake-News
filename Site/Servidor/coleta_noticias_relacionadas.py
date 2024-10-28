@@ -15,28 +15,33 @@ def coletar_noticias_g1(palavras_chave, lista_noticias):
         site = BeautifulSoup(content, 'html.parser')
 
         # HTML da noticia
-        noticias = site.findAll('div', attrs={'class': 'widget--info__text-container'})
 
-        for i, noticia in enumerate(noticias):
-            if i >= 3:  # Limita a coleta a 3 notícias
-                break
+        if(site.findAll('p', attrs={'class': 'widget--no-results__title'})):
+            print("Busca temporariamente indisponível no G1")
+            
+        else:
+            noticias = site.findAll('div', attrs={'class': 'widget--info__text-container'})
 
-            # Titulo
-            titulo = noticia.find('div', attrs={'class': 'widget--info__title product-color'})
-            titulo_texto = titulo.text.strip() if titulo else ''
+            for i, noticia in enumerate(noticias):
+                if i >= 3:  # Limita a coleta a 3 notícias
+                    break
 
-            # Link original
-            link_original = noticia.find('a')['href'] if noticia.find('a') else ''
+                # Titulo
+                titulo = noticia.find('div', attrs={'class': 'widget--info__title product-color'})
+                titulo_texto = titulo.text.strip() if titulo else ''
 
-            # Link redirecionado após o clique
-            link_redirecionado, texto = obter_link_redirecionado("https:" + link_original, url_base_g1)
+                # Link original
+                link_original = noticia.find('a')['href'] if noticia.find('a') else ''
 
-            # Subtitulo
-            subtitulo = noticia.find('p', attrs={'class': 'widget--info__description'})
-            subtitulo_texto = subtitulo.text.strip() if subtitulo else ''
+                # Link redirecionado após o clique
+                link_redirecionado, texto = obter_link_redirecionado("https:" + link_original, url_base_g1)
 
-            # Adiciona a notícia à lista
-            lista_noticias.append({'titulo': titulo_texto, 'subtitulo': subtitulo_texto, 'link': link_redirecionado, 'texto': texto})
+                # Subtitulo
+                subtitulo = noticia.find('p', attrs={'class': 'widget--info__description'})
+                subtitulo_texto = subtitulo.text.strip() if subtitulo else ''
+
+                # Adiciona a notícia à lista
+                lista_noticias.append({'titulo': titulo_texto, 'subtitulo': subtitulo_texto, 'link': link_redirecionado, 'texto': texto})
 
     return lista_noticias
 
@@ -106,7 +111,7 @@ def coletar_noticias_cnn(palavras_chave, lista_noticias):
                 break
 
             # Titulo
-            titulo = noticia.find('h3', attrs={'class': 'news-item-header__title market__new__title'})
+            titulo = noticia.find('h3', attrs={'class': 'news-item-header__title'})
             titulo_texto = titulo.text.strip() if titulo else ''
 
             # Link original
@@ -125,12 +130,48 @@ def coletar_noticias_cnn(palavras_chave, lista_noticias):
 
     return lista_noticias
 
+def coletar_noticias_estadao(palavras_chave, lista_noticias):
+    url_base_estadao = 'https://busca.estadao.com.br/'
+    
+    busca = ' '.join(palavra for palavra, _ in palavras_chave)
+
+    response = requests.get(url_base_estadao + '?tipo_conteudo=Todos&quando=&q=' + busca)
+
+    if response.status_code == 200:
+        content = response.content
+        site = BeautifulSoup(content, 'html.parser')
+
+        noticias = site.find_all('a', attrs={'class': 'link-title'})
+
+        for i, noticia in enumerate(noticias):
+            if i >= 3:
+                break
+            
+            # Titulo
+            titulo = noticia.find('h3', attrs={'class': 'third'})
+            titulo_texto = titulo.text.strip() if titulo else ''
+
+            # Link original
+            link_original = noticia['href']
+
+            link_redirecionado, texto = extrair_texto(url_base_estadao, link_original)
+
+            # Subtitulo
+            subtitulo = noticia.find('p')
+            subtitulo_texto = subtitulo.text.strip() if subtitulo else ''
+
+            # Adiciona a notícia à lista
+            lista_noticias.append({'titulo': titulo_texto, 'subtitulo': subtitulo_texto, 'link': link_redirecionado, 'texto': texto})
+
+    return lista_noticias
+
 def coletar_noticias_paralelo(palavras_chave):
     lista_noticias = []
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.submit(coletar_noticias_g1, palavras_chave, lista_noticias)
         executor.submit(coletar_noticias_sbt, palavras_chave, lista_noticias)
         executor.submit(coletar_noticias_cnn, palavras_chave, lista_noticias)
+        executor.submit(coletar_noticias_estadao, palavras_chave, lista_noticias)
 
     return lista_noticias
 
@@ -215,6 +256,22 @@ def extrair_texto(url_base, link_redirecionado):
             noticias = site.find('article')
             noticia_texto = noticias.find_all('p')
             text = '\n'.join([noticia.text for noticia in noticia_texto])
+
+            driver.quit()
+        except:
+            pass
+    elif(url_base == 'https://busca.estadao.com.br/'):
+        try:
+            driver = configure_chrome_options()
+
+            driver.get(link_redirecionado)
+            content = driver.page_source
+            site = BeautifulSoup(content, 'html.parser')
+
+            link_redirecionado = driver.current_url
+
+            noticias = site.find_all('p')
+            text = '\n'.join([noticia.text for noticia in noticias])
 
             driver.quit()
         except:

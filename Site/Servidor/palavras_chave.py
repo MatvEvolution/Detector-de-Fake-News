@@ -9,7 +9,7 @@ import os
 nltk.download('stopwords')
 nltk.download('punkt')
 
-def extrair_palavras_chave(texto, quantidade_palavras_chave=10):
+def extrair_palavras_chave(texto, quantidade_palavras_chave=5):
     # Remove pontuações e outros caracteres indesejados
     tokenizer = RegexpTokenizer(r'\w+')
     palavras = tokenizer.tokenize(texto)
