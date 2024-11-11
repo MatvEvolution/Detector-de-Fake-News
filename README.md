@@ -26,23 +26,24 @@ main/
 │   ├── bilstm/
 │   │   ├── treinamento/
 │   │   └── teste/
-│   ├── glove/
+│   ├── bilstm (glove)/
 │   │   ├── treinamento/
 │   │   └── teste/
 │   ├── lstm stacked/
 │   │   ├── treinamento/
 │   │   └── teste/
 │   ├── lstm vanilla/
-│   │   └── treinamento/
-│   ├── regressao logistica/
 │   │   ├── treinamento/
 │   │   └── teste/
-│   └── word2vec/
+│   └── regressao logistica/
+│       ├── treinamento/
+│       └── teste/
+│   
 ├── pre-processamento/
 |
 ├── site/
 │   ├── cliente
-│   ├── servidor
+│   └── servidor
 ├── requirements.txt
 ├── README.md
 └── LICENSE
